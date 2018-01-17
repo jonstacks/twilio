@@ -2,8 +2,6 @@ package twilio
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/url"
 )
 
@@ -34,10 +32,6 @@ func (m *Message) toForm() *url.Values {
 // SendMessage sends the given message
 func (c *Client) SendMessage(msg *Message) error {
 	path := fmt.Sprintf("/2010-04-01/Accounts/%s/Messages", c.accountSID)
-	resp, err := c.send("POST", path, msg)
-
-	bites, _ := ioutil.ReadAll(resp.Body)
-	log.Println(string(bites))
-
+	_, err := c.send("POST", path, msg)
 	return err
 }
